@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Todo } from './model';
 import { AiOutlineEdit, AiFillDelete, AiOutlineCheck } from 'react-icons/ai'
 import './styles.css'
+import { Draggable } from 'react-beautiful-dnd';
 
 
-type Props ={
+type Props = {
+    index: number;
     todo: Todo;
     todos: Todo[];
     setTodos:  React.Dispatch<React.SetStateAction<Todo[]>>
 }
-const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) =>
+const SingleTodo: React.FC<Props> = ({ index, todo, todos, setTodos }) =>
 {
     const [edit, setEdit] = useState<boolean>(false)
     const [editTodo, setEditTodo] = useState<string>(todo.todo)
@@ -45,8 +47,15 @@ useEffect(() => {
 }, [edit])
 
 
-  return (
-      <form className='todos_single' onSubmit={(e)=>handleEdit(e, todo.id)}>
+    return (
+        <Draggable draggableId={todo.id.toString()} index={index}>
+            {
+                (provided, snapshot) => (
+                    <form className={`todos_single ${snapshot.isDragging? "drag": ''}`} onSubmit={(e) => handleEdit(e, todo.id)}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                    >
           {edit ? (
               <input value={editTodo}
                   ref={editRef}
@@ -70,12 +79,15 @@ useEffect(() => {
                       setEdit(!edit)
                   }
               }
-              }
-              ><AiOutlineEdit /></span>
+            }
+            ><AiOutlineEdit /></span>
               <span className='icons' onClick={()=> handleDelete(todo.id)}><AiFillDelete/></span>
               <span className='icons' onClick={()=> handleDone(todo.id)}><AiOutlineCheck/></span>
           </div>
     </form>
+                )
+            }
+            </Draggable>
   )
 }
 

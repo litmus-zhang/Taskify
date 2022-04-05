@@ -1,6 +1,6 @@
 .input{
     display: flex;
-    width: 90%;
+    width: 95%;
     position: relative;
     align-items: center;
 }
@@ -44,23 +44,45 @@
    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+.container{
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 10px;
+    gap: 10px;
+
+}
+.todos__heading{
+    font-size: 30px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 10px;
+}
+
 .todos{
     display: flex;
-    justify-content: space-evenly;
     width: 90%;
-    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(40, 183, 235);
 }
 
 .todos_single{
     display: flex;
     align-items: center;
-    width: 30%;
     border-radius: 5px;
     padding: 20px;
     margin-top: 15px;
     background: linear-gradient(to right , #444, #222);
     border: 1px #ddd solid;
     justify-content: space-between;
+    transition: 00.2s;
+}
+.todos_single:hover{
+    box-shadow: 0 0 5px rgba(9, 87, 77, 0.2);
+    transform: scale(1.02);
 }
 .todos_single-text{
     flex: 1;
@@ -78,20 +100,36 @@
     font-size: 25px;
     cursor: pointer;
 }
-@media (max-width: 1200px) {
-    .todos_single{
-        width: 40%;
+@media (max-width: 1100px) {
+    .todos{
+        width: 45%;
     }
 }
+
 @media (max-width: 700px) {
-    .inpu{
+    .input{
         width: 95%;
     }
 
     .todos{
         width: 95%;
+        margin-bottom: 10px;
     }
-    .todos_single{
-        width: 90%;
+    .container{
+        width: 95%;
+        flex-direction: column;
     }
+}
+.remove{
+    background-color: rgb(245, 120, 120);
+}
+
+.dragactive{
+    background-color: rgb(14, 98, 132);
+}
+.dragcomplete{
+    background-color: rgb(218, 22, 22);
+}
+.drag{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
